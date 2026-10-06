@@ -33,3 +33,27 @@ class ConflictError(DomainError):
 
     code = "conflict"
     status = 409
+
+
+class SubmissionClosed(ConflictError):
+    """征集已截止或快照已冻结，补交材料不能静默改写评审依据。"""
+
+    code = "submission_closed"
+
+
+class ReviewQuorumError(ConflictError):
+    """利益冲突回避后独立评审人数不再满足要求。"""
+
+    code = "review_quorum"
+
+
+class ResourceContention(ConflictError):
+    """预算或稀缺设施被另一个生效组合占用，无法原子取得。"""
+
+    code = "resource_contention"
+
+
+class WorkflowStateError(ConflictError):
+    """对象当前状态不允许该动作（重复生效、会签已结束等）。"""
+
+    code = "workflow_state"
